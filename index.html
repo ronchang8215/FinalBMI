@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html,body {
+                margin: 0;
+                width: 100%;
+                min-height:100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-family:Arial, Helvetica, sans-serif;
+                color:#424242;
+                background-color:#F0F0F0;
+            }
+
+            header {
+                width: 100%;
+                height:300px;
+                display: flex;
+                background-color: #424242 ;
+                justify-content: center;
+            }
+            header div {
+                position: relative;
+                margin: auto;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+                width:100%;
+            }
+
+            header div img {
+                position:absolute;
+                margin: auto;
+                top:0;
+                bottom:0;
+                right:10%;
+            }
+
+            .input {
+                width:60%;
+                height:170px;
+            }
+
+            .input p {
+                font-size: 18px;
+                color: #FFD366;
+                margin:3px;
+            }
+
+            input {
+                font-size: 24px;
+                width:100%;
+                background-color: rgba(255,255,255,0.18);
+                border: 2px solid #FFD366;
+                border-radius: 10px;
+                padding:4px 8px;
+                margin-bottom: 10px;
+            }
+
+            ::placeholder { /* CSS 3 標準 */
+                color: rgba(255,255,255,0.50);
+            }
+            
+            ::-webkit-input-placeholder { /* Chrome, Safari */
+                color: rgba(255,255,255,0.50);
+            }
+            
+            :-ms-input-placeholder { /* IE 10+ */
+                color: rgba(255,255,255,0.50);
+            }
+            
+            ::-moz-placeholder { /* Firefox 19+ */
+                color: rgba(255,255,255,0.50);
+            }
+
+            .BMIresult {
+                width:120px;
+                left:0;
+                margin:0;
+            }
+
+            .calculate {
+                display: inline-block;
+                border-radius: 999rem;
+                background-color:#FFD366;
+                width:120px;
+                height:120px;
+                position: relative;
+                text-align: center;
+                transition: 0.3s;
+                cursor: pointer;
+            }
+
+            .complete {
+                background-color: transparent;
+                pointer-events:none;
+            }
+
+            .calculate div {
+                position: absolute;
+                line-height: 24px;
+                width:120px;
+                height:30px;
+            }
+
+            .calculate h5{
+                font-size:24px;
+                line-height:24px;
+            }
+
+            .calculate p {
+                margin:0;
+                line-height: 5px;
+                font-size: 12px;
+            }
+
+            .calculate:hover  {
+                box-shadow: 0 1px 6px 3px rgba(255,196,50,0.64);
+            }
+
+            .calculate:active {
+                background-color:#DEA821;
+                box-shadow:none;
+            }
+
+            .BMIresult #loop {
+                position: absolute;
+                left:75%;
+                top:70%;
+                background: white;
+                border-radius: 999rem;
+                width:30px;
+                height:30px;
+                display: none;
+                cursor: pointer;
+            }
+
+            #loop img {
+                margin:auto;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+                position: absolute;
+            }
+
+            .BMIresult #BMIappear {
+                font-size: 24px;
+                color:#FFFFFF;
+                position:absolute;
+                left:120%;
+                top:36%;
+                display: none;
+            }
+
+            h1 {
+                margin-bottom: -30px;
+            }
+
+            #record {
+                width:60%;
+                padding:50px 0px;
+                min-height:100px;
+            }
+
+            #record div {
+                display: flex;
+                width:100%;
+                background-color: #FFFFFF;
+                margin:10px;
+                height:70px;
+                position: relative;
+            }
+
+            #record div div{
+                margin:0;
+                top:0;
+                left:0;
+                position: absolute;
+                height:70px;
+                width:7px;
+                background-color: #424242;
+                box-shadow: 2px 0 3px 0 rgba(134,215,63,0.29);
+            }
+
+            #record div span {
+                width:100%;
+                text-align: left;
+            }
+
+            .conditionarea {
+                padding-left:10px;
+            }
+
+            #record div span:last-child{
+                text-align: right;
+            }
+
+            #record span p,h5 {
+                display: inline-block;
+                width:auto;
+                line-height: 60px;
+                margin:3px;
+            }
+
+            #record span p {
+                font-size: 12px;
+            }
+
+            #record span h5 {
+                font-size: 20px;
+            }            
+
+            footer {
+                width: 100%;
+                height:90px;
+                background-color: #FFD366;
+                position: relative;
+            }
+            footer img {
+                width:55px;
+                position: absolute;
+                margin: auto;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+            }
+        </style>
+    </head>
+    <body>
+        <header> 
+            <div><img src="assets/BMICLogo.png"></div>
+            <div>
+                <div class="input">
+                    <p>身高 cm</p>
+                    <input  type="number" id="height" placeholder="請輸入身高">
+                    <p>體重 kg</p>
+                    <input  type="number" id="weight" placeholder="請輸入體重">
+                </div>
+            </div>
+            <div>
+                <div class="BMIresult">
+                    <div type="submit" class="calculate">
+                        <div><h5>看結果</h5></div>
+                    </div>
+                    <div id="loop"><img src="assets/icons_loop.png"></div>
+                    <div id="BMIappear">理想</div>
+                </div>
+            </div>
+        </header>
+        <h1>BMI紀錄</h1>
+        <div id="record">
+        </div>
+        <footer>
+            <img src="assets/BMICLogo1.png">
+        </footer>
+    
+        <script>
+            let record =JSON.parse(localStorage.getItem("BMIrecord"))||[];
+            let resultbutton = document.querySelector(".calculate");
+            let BMIappear = document.getElementById("BMIappear");
+            let BMIloop = document.getElementById("loop");
+            appear();
+            function calculate(){
+                let height = document.getElementById("height").value;
+                let heightmeter = height/100 ;
+                let weight = document.getElementById("weight").value;
+                let BMI = weight/heightmeter/heightmeter;
+                BMI = BMI.toFixed(2);
+                let condition ="";
+                let BMIcolor ="";
+                let day = new Date();
+                if(BMI>40){
+                    condition = "重度肥胖";
+                    BMIcolor = "#FF1200";
+                }else if(BMI<40&&BMI>35){
+                    condition = "中度肥胖";
+                    BMIcolor = "#FF6C03";
+                }else if(BMI<35&&BMI>30){
+                    condition = "輕度肥胖";
+                    BMIcolor = "#FF6C03";
+                }else if(BMI<30&&BMI>25){
+                    condition = "過重";
+                    BMIcolor = "#FF982D";
+                }else if(BMI<25&&BMI>18.5){
+                    condition = "理想";
+                    BMIcolor = "#86D73F";
+                }else if(BMI<18.5&&BMI>0){
+                    condition = "過輕"
+                    BMIcolor = "#31BAF9";
+                }else{
+                    condition = "無效";
+                }
+                if (height.length>0&&weight.length>0){
+                    record.unshift({yourBMIcolor:BMIcolor,yourcondition:condition,yourBMI:BMI,yourheight:height,yourweight:weight,month:day.getMonth(),date:day.getDate(),year:day.getFullYear()});
+                    localStorage.setItem("BMIrecord",JSON.stringify(record));
+                    resultbutton.innerHTML = `<div><h5>${BMI}</h5><p>BMI</p></div>`;
+                    resultbutton.style.border ="6px solid"+BMIcolor;
+                    resultbutton.style.color = BMIcolor;
+                    BMIloop.style.background = BMIcolor;
+                    BMIappear.style.color = BMIcolor;
+                    appear();
+                    toggle();
+                }else {
+                    alert("請輸入數字");
+                }
+            }
+            function appear(){
+                let content="";
+                for(let i=0;i<record.length;i++){
+                    content += 
+                    `<div>
+                        <div style="background:${record[i].yourBMIcolor}"></div>
+                        <span class="conditionarea"><h5>${record[i].yourcondition}</h5></span>
+                        <span><p>BMI</p><h5>${record[i].yourBMI}</h5></span>
+                        <span><p>weight</p><h5>${record[i].yourweight}kg</h5></span>
+                        <span><p>height</p><h5>${record[i].yourheight}cm</h5></span>
+                        <span><p>${record[i].month + 1}-${record[i].date}-${record[i].year}</p></span>
+                        </div>
+                    `;
+                }
+                document.getElementById("record").innerHTML = content;
+                if(record.length>5) {
+                    record.pop();
+                }
+            }
+            function toggle(){
+                resultbutton.classList.add("complete");
+                document.getElementById("loop").style.display ="block";
+                BMIappear.style.display = "block";
+                document.getElementById("loop").addEventListener("click",function(){
+                    resultbutton.classList.remove("complete");
+                    resultbutton.style.border ="none";
+                    resultbutton.style.color ="#424242";
+                    resultbutton.innerHTML = 
+                    `<div><h5>看結果</h5></div>`;
+                    document.getElementById("loop").style.display ="none";
+                    BMIappear.style.display = "none";
+                })
+            }
+            resultbutton.addEventListener("click",calculate);
+        </script>
+    </body>
+</html>
